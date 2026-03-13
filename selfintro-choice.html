@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choose Introduction Mode - ShivIQ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #164e63, #1e3a8a, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.38;
+      animation: floatBlob 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .blob1 {
+      width: 260px;
+      height: 260px;
+      background: #06b6d4;
+      top: 40px;
+      left: 50px;
+    }
+
+    .blob2 {
+      width: 280px;
+      height: 280px;
+      background: #2563eb;
+      bottom: 40px;
+      right: 50px;
+      animation-delay: 2s;
+    }
+
+    .blob3 {
+      width: 220px;
+      height: 220px;
+      background: #14b8a6;
+      top: 42%;
+      left: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.06); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 0 60px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #67e8f9;
+      animation: pulseIcon 2s infinite;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 34px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(90deg, #67e8f9, #60a5fa, #2dd4bf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: #dbeafe;
+      max-width: 780px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .company-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #e2e8f0;
+      font-size: 14px;
+      margin-top: 18px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 34px;
+    }
+
+    .choice-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+      animation: fadeUp 1s ease forwards;
+      transition: 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .choice-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.11);
+    }
+
+    .recommended {
+      border: 1px solid rgba(103,232,249,0.45);
+      box-shadow: 0 0 0 1px rgba(103,232,249,0.15), 0 20px 50px rgba(0,0,0,0.22);
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(34,197,94,0.16);
+      color: #86efac;
+      border: 1px solid rgba(34,197,94,0.25);
+    }
+
+    .choice-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #67e8f9;
+    }
+
+    .choice-card h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .choice-card p {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      color: #e2e8f0;
+    }
+
+    .mini-item i {
+      color: #67e8f9;
+    }
+
+    .choose-btn {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      transition: 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #0891b2, #2563eb);
+      box-shadow: 0 12px 35px rgba(8,145,178,0.3);
+    }
+
+    .choose-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(37,99,235,0.35);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blur blob1"></div>
+  <div class="bg-blur blob2"></div>
+  <div class="bg-blur blob3"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>ShivIQ</span>
+      </div>
+
+      <a href="dresscode.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dress Code
+      </a>
+    </div>
+
+    <div class="page-header">
+      <h1>Choose Your <span>Introduction Mode</span></h1>
+      <p>
+        Select how you want to complete your self introduction. You can either type it manually
+        or speak it using voice recognition.
+      </p>
+      <div class="company-pill">
+        <i class="fa-solid fa-building"></i>
+        Selected Company: <strong id="companyText">Zoho</strong>
+      </div>
+    </div>
+
+    <div class="choice-grid">
+      <div class="choice-card">
+        <div class="choice-icon">
+          <i class="fa-solid fa-keyboard"></i>
+        </div>
+
+        <h2>Text Introduction</h2>
+        <p>
+          Type your self introduction manually. This is good if you want to carefully write
+          and structure your response.
+        </p>
+
+        <div class="mini-list">
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Easy to edit and refine</div>
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Good for structured answers</div>
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Best if you prefer typing</div>
+        </div>
+
+        <a href="selfintro-text.html" class="choose-btn" onclick="localStorage.setItem('selfIntroModeChoice','text')">
+          <i class="fa-solid fa-arrow-right"></i>
+          Choose Text Mode
+        </a>
+      </div>
+
+      <div class="choice-card recommended">
+        <div class="badge">Recommended</div>
+
+        <div class="choice-icon">
+          <i class="fa-solid fa-microphone-lines"></i>
+        </div>
+
+        <h2>Voice Introduction</h2>
+        <p>
+          Speak your self introduction naturally. ShivIQ will listen, convert your voice to text,
+          and save it for analysis.
+        </p>
+
+        <div class="mini-list">
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Feels like a real interview</div>
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Better for communication practice</div>
+          <div class="mini-item"><i class="fa-solid fa-check"></i> Useful for confidence evaluation</div>
+        </div>
+
+        <a href="selfintro-voice.html" class="choose-btn" onclick="localStorage.setItem('selfIntroModeChoice','voice')">
+          <i class="fa-solid fa-arrow-right"></i>
+          Choose Voice Mode
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const selectedCompany = localStorage.getItem("selectedCompany") || "Zoho";
+    document.getElementById("companyText").textContent = selectedCompany;
+  </script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Interview - ShivIQ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.4;
+      animation: floatBlob 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .blob1 {
+      width: 260px;
+      height: 260px;
+      background: #8b5cf6;
+      top: 40px;
+      left: 50px;
+    }
+
+    .blob2 {
+      width: 280px;
+      height: 280px;
+      background: #06b6d4;
+      bottom: 40px;
+      right: 50px;
+      animation-delay: 2s;
+    }
+
+    .blob3 {
+      width: 220px;
+      height: 220px;
+      background: #22c55e;
+      top: 42%;
+      left: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.06); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 0 60px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #60a5fa;
+      animation: pulseIcon 2s infinite;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 35px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(90deg, #60a5fa, #22d3ee, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: #dbeafe;
+      max-width: 780px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .company-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #e2e8f0;
+      font-size: 14px;
+      margin-top: 18px;
+    }
+
+    .section-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title i {
+      color: #93c5fd;
+    }
+
+    .card-subtitle {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .option-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 18px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+    }
+
+    .option-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .option-card.selected {
+      border: 1px solid rgba(96,165,250,0.9);
+      background: rgba(59,130,246,0.18);
+      box-shadow: 0 0 0 1px rgba(96,165,250,0.35);
+    }
+
+    .option-card i {
+      color: #60a5fa;
+      width: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      resize: vertical;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      padding: 18px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #bfdbfe;
+    }
+
+    .question-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .question-box h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+    }
+
+    .question-box textarea {
+      min-height: 100px;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      transition: 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(124, 58, 237, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    .status-box {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.25);
+      color: #86efac;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .status-box.show {
+      display: flex;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .option-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blur blob1"></div>
+  <div class="bg-blur blob2"></div>
+  <div class="bg-blur blob3"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>ShivIQ</span>
+      </div>
+
+      <a href="process.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Process
+      </a>
+    </div>
+
+    <div class="page-header">
+      <h1>Mock Interview for <span id="companyName">Zoho</span></h1>
+      <p>
+        Complete all three sections below. Your dress selection, self introduction, and HR answers
+        will be saved and used for the final performance report.
+      </p>
+      <div class="company-pill">
+        <i class="fa-solid fa-building"></i>
+        Selected Company: <strong id="companyPillText">Zoho</strong>
+      </div>
+    </div>
+
+    <div class="section-grid">
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-shirt"></i>
+          <span>Part 1 — Dress Code Check</span>
+        </div>
+        <div class="card-subtitle">
+          Select the formal dress items you would wear to the interview.
+        </div>
+
+        <div class="option-grid" id="dressOptions">
+          <div class="option-card" data-value="Formal Shirt"><i class="fa-solid fa-user-tie"></i> Formal Shirt</div>
+          <div class="option-card" data-value="Blazer"><i class="fa-solid fa-briefcase"></i> Blazer</div>
+          <div class="option-card" data-value="Tie"><i class="fa-solid fa-ribbon"></i> Tie</div>
+          <div class="option-card" data-value="Formal Shoes"><i class="fa-solid fa-shoe-prints"></i> Formal Shoes</div>
+          <div class="option-card" data-value="T-Shirt"><i class="fa-solid fa-shirt"></i> T-Shirt</div>
+          <div class="option-card" data-value="Sneakers"><i class="fa-solid fa-shoe-prints"></i> Sneakers</div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-microphone-lines"></i>
+          <span>Part 2 — Self Introduction</span>
+        </div>
+        <div class="card-subtitle">
+          Type your self introduction as if you are speaking to the interviewer.
+        </div>
+
+        <textarea id="selfIntro" placeholder="Example: Hello, my name is Praveen. I recently completed my degree and I am passionate about software development, problem solving, and learning new technologies..."></textarea>
+        <div class="hint">Try to mention your education, skills, projects, and goals.</div>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-comments"></i>
+          <span>Part 3 — HR Questions</span>
+        </div>
+        <div class="card-subtitle">
+          Answer the HR questions below. For demo, one of the two prepared sets will be shown randomly.
+        </div>
+
+        <div id="questionsContainer"></div>
+
+        <div class="action-row">
+          <button class="btn btn-primary" id="saveBtn">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Interview Answers
+          </button>
+
+          <a href="result.html" class="btn btn-secondary" id="finishBtn">
+            <i class="fa-solid fa-chart-column"></i>
+            View Final Result
+          </a>
+        </div>
+
+        <div class="status-box" id="saveStatus">
+          <i class="fa-solid fa-circle-check"></i>
+          Mock interview data saved successfully
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const selectedCompany = localStorage.getItem("selectedCompany") || "Zoho";
+    document.getElementById("companyName").textContent = selectedCompany;
+    document.getElementById("companyPillText").textContent = selectedCompany;
+
+    const hrSet1 = [
+      "Tell me about yourself.",
+      "Why do you want to work at this company?",
+      "What are your strengths?"
+    ];
+
+    const hrSet2 = [
+      "Why should we hire you?",
+      "What is your biggest weakness?",
+      "Describe a project you are proud of."
+    ];
+
+    const chosenSet = Math.random() < 0.5 ? hrSet1 : hrSet2;
+    const questionsContainer = document.getElementById("questionsContainer");
+
+    chosenSet.forEach((question, index) => {
+      const box = document.createElement("div");
+      box.className = "question-box";
+      box.innerHTML = `
+        <h3>Question ${index + 1}: ${question}</h3>
+        <textarea class="hr-answer" data-question="${question}" placeholder="Type your answer here..."></textarea>
+      `;
+      questionsContainer.appendChild(box);
+    });
+
+    const dressCards = document.querySelectorAll(".option-card");
+    const selectedDressItems = [];
+
+    dressCards.forEach(card => {
+      card.addEventListener("click", () => {
+        const value = card.getAttribute("data-value");
+        card.classList.toggle("selected");
+
+        if (selectedDressItems.includes(value)) {
+          const index = selectedDressItems.indexOf(value);
+          selectedDressItems.splice(index, 1);
+        } else {
+          selectedDressItems.push(value);
+        }
+      });
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      const selfIntro = document.getElementById("selfIntro").value.trim();
+      const hrAnswers = [...document.querySelectorAll(".hr-answer")].map(area => ({
+        question: area.dataset.question,
+        answer: area.value.trim()
+      }));
+
+      localStorage.setItem("dressSelection", JSON.stringify(selectedDressItems));
+      localStorage.setItem("selfIntroduction", selfIntro);
+      localStorage.setItem("hrAnswers", JSON.stringify(hrAnswers));
+      localStorage.setItem("hrQuestionSet", JSON.stringify(chosenSet));
+
+      document.getElementById("saveStatus").classList.add("show");
+    });
+  </script>
+
+</body>
+</html>

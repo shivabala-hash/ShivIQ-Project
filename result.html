@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Result - ShivIQ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
+      animation: floatBlob 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .blob1 {
+      width: 260px;
+      height: 260px;
+      background: #8b5cf6;
+      top: 40px;
+      left: 50px;
+    }
+
+    .blob2 {
+      width: 280px;
+      height: 280px;
+      background: #06b6d4;
+      bottom: 40px;
+      right: 50px;
+      animation-delay: 2s;
+    }
+
+    .blob3 {
+      width: 220px;
+      height: 220px;
+      background: #22c55e;
+      top: 42%;
+      left: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.06); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 92%;
+      max-width: 1250px;
+      margin: auto;
+      padding: 32px 0 60px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 26px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #60a5fa;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .hero {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+      margin-bottom: 22px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #60a5fa, #22d3ee, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 15px;
+      max-width: 760px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    .score-card {
+      min-width: 220px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 24px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .score-label {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .score-value {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .score-status {
+      font-size: 14px;
+      color: #86efac;
+    }
+
+    .chrome-wrap {
+      animation: fadeUp 1.1s ease forwards;
+    }
+
+    .chrome-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 8px 0;
+      scrollbar-width: none;
+    }
+
+    .chrome-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chrome-tab {
+      border: 1px solid rgba(255,255,255,0.14);
+      border-bottom: none;
+      background: rgba(255,255,255,0.06);
+      color: #dbeafe;
+      padding: 12px 18px;
+      border-radius: 18px 18px 0 0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.25s ease;
+      font-size: 14px;
+    }
+
+    .chrome-tab:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .chrome-tab.active {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      transform: translateY(1px);
+    }
+
+    .tab-body {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 0 24px 24px 24px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+      min-height: 420px;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title i {
+      color: #93c5fd;
+    }
+
+    .section-subtitle {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .stat-box .label {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .stat-box .value {
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .two-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .info-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .list-item i {
+      margin-top: 3px;
+    }
+
+    .good i { color: #4ade80; }
+    .warn i { color: #facc15; }
+    .improve i { color: #60a5fa; }
+
+    .big-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .big-box h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .big-box p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #dbeafe;
+      white-space: pre-wrap;
+    }
+
+    .answer-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .answer-card h4 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .answer-card p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #dbeafe;
+      white-space: pre-wrap;
+    }
+
+    .meter-box {
+      margin-top: 10px;
+    }
+
+    .meter-label {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #8b5cf6);
+    }
+
+    .final-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      transition: 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 12px 35px rgba(59,130,246,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(124,58,237,0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+      }
+
+      .two-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .tab-body {
+        border-radius: 18px;
+        padding: 20px;
+      }
+
+      .stats-grid,
+      .two-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blur blob1"></div>
+  <div class="bg-blur blob2"></div>
+  <div class="bg-blur blob3"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>ShivIQ</span>
+      </div>
+
+      <a href="hrquestions.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to HR Questions
+      </a>
+    </div>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <h1>Final <span>Interview Result</span></h1>
+          <p>
+            This report summarizes your performance across resume readiness, dress code selection,
+            self introduction, and HR interview answers.
+          </p>
+
+          <div class="pill-row">
+            <div class="pill"><i class="fa-solid fa-building"></i> Company: <strong id="companyName">Zoho</strong></div>
+            <div class="pill"><i class="fa-solid fa-keyboard"></i> Intro Mode: <strong id="introMode">Text</strong></div>
+            <div class="pill"><i class="fa-solid fa-list-check"></i> HR Questions: <strong id="hrCount">5</strong></div>
+          </div>
+        </div>
+
+        <div class="score-card">
+          <div class="score-label">Overall Performance</div>
+          <div class="score-value" id="overallScore">0%</div>
+          <div class="score-status" id="scoreStatus">Needs Improvement</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chrome-wrap">
+      <div class="chrome-tabs">
+        <button class="chrome-tab active" data-tab="overview">Overview</button>
+        <button class="chrome-tab" data-tab="resume">Resume</button>
+        <button class="chrome-tab" data-tab="dress">Dress Code</button>
+        <button class="chrome-tab" data-tab="intro">Self Intro</button>
+        <button class="chrome-tab" data-tab="hr">HR Answers</button>
+        <button class="chrome-tab" data-tab="improve">Improve</button>
+      </div>
+
+      <div class="tab-body">
+        <div class="tab-panel active" id="overview">
+          <div class="section-title"><i class="fa-solid fa-chart-column"></i> Performance Overview</div>
+          <div class="section-subtitle">Your main results are summarized here.</div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="label">Resume Score</div>
+              <div class="value" id="resumeScore">0%</div>
+            </div>
+            <div class="stat-box">
+              <div class="label">Dress Score</div>
+              <div class="value" id="dressScore">0%</div>
+            </div>
+            <div class="stat-box">
+              <div class="label">Intro Score</div>
+              <div class="value" id="introScore">0%</div>
+            </div>
+            <div class="stat-box">
+              <div class="label">HR Score</div>
+              <div class="value" id="hrScore">0%</div>
+            </div>
+          </div>
+
+          <div class="two-grid">
+            <div class="info-card">
+              <h3>Good Points</h3>
+              <div class="list" id="goodPoints"></div>
+            </div>
+
+            <div class="info-card">
+              <h3>Need Attention</h3>
+              <div class="list" id="warnPoints"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="resume">
+          <div class="section-title"><i class="fa-solid fa-file-lines"></i> Resume Analysis</div>
+          <div class="section-subtitle">This section shows the actual uploaded resume analysis.</div>
+
+          <div class="big-box">
+            <h3>Uploaded File</h3>
+            <p id="resumeFileText">No resume uploaded.</p>
+          </div>
+
+          <div class="big-box">
+            <h3>Extracted Resume Text</h3>
+            <p id="resumeExtractedText">No extracted resume text found.</p>
+          </div>
+
+          <div class="list-box">
+            <h3>What Is Good</h3>
+            <div class="list" id="resumeGoodList"></div>
+          </div>
+
+          <div class="list-box">
+            <h3>What Is Missing / Weak</h3>
+            <div class="list" id="resumeWarnList"></div>
+          </div>
+
+          <div class="list-box">
+            <h3>ATS-Friendly Improvements</h3>
+            <div class="list" id="resumeImproveList"></div>
+          </div>
+
+          <div class="big-box">
+            <h3>Suggested ATS-Friendly Changes</h3>
+            <p id="resumeRewriteText">No ATS rewrite suggestions found.</p>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="dress">
+          <div class="section-title"><i class="fa-solid fa-shirt"></i> Dress Code Evaluation</div>
+          <div class="section-subtitle">Based on the outfit items you selected.</div>
+
+          <div class="big-box">
+            <h3>Selected Items</h3>
+            <p id="dressItemsText">No items selected.</p>
+          </div>
+
+          <div class="meter-box">
+            <div class="meter-label">Dress Professionalism</div>
+            <div class="progress">
+              <div class="progress-bar" id="dressProgress" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="list" style="margin-top:18px;">
+            <div class="list-item good"><i class="fa-solid fa-circle-check"></i> Formal clothing creates a strong first impression in interviews.</div>
+            <div class="list-item warn"><i class="fa-solid fa-triangle-exclamation"></i> Casual choices like T-shirt or sneakers reduce formality score.</div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="intro">
+          <div class="section-title"><i class="fa-solid fa-microphone-lines"></i> Self Introduction Review</div>
+          <div class="section-subtitle">This section reviews your saved self introduction.</div>
+
+          <div class="big-box">
+            <h3>Your Introduction</h3>
+            <p id="introText">No self introduction found.</p>
+          </div>
+
+          <div class="meter-box">
+            <div class="meter-label">Introduction Quality</div>
+            <div class="progress">
+              <div class="progress-bar" id="introProgress" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="list" style="margin-top:18px;" id="introFeedback"></div>
+        </div>
+
+        <div class="tab-panel" id="hr">
+          <div class="section-title"><i class="fa-solid fa-comments"></i> HR Answer Review</div>
+          <div class="section-subtitle">Your responses to the HR round are shown below.</div>
+
+          <div id="hrAnswersList"></div>
+        </div>
+
+        <div class="tab-panel" id="improve">
+          <div class="section-title"><i class="fa-solid fa-arrow-trend-up"></i> Improvement Plan</div>
+          <div class="section-subtitle">These are the main things to improve before your next interview.</div>
+
+          <div class="two-grid">
+            <div class="info-card">
+              <h3>What to Improve</h3>
+              <div class="list" id="improveList"></div>
+            </div>
+
+            <div class="info-card">
+              <h3>What to Change</h3>
+              <div class="list" id="changeList"></div>
+            </div>
+          </div>
+
+          <div class="final-actions">
+            <a href="index.html" class="btn btn-primary" onclick="resetAllSession()">
+              <i class="fa-solid fa-rotate-right"></i>
+              Restart Demo
+            </a>
+            <button class="btn btn-secondary" onclick="window.print()">
+              <i class="fa-solid fa-print"></i>
+              Print Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function resetAllSession() {
+      localStorage.removeItem("resumeATSScore");
+      localStorage.removeItem("resumeUploadedFileName");
+      localStorage.removeItem("resumeExtractedText");
+      localStorage.removeItem("resumeAnalysisGood");
+      localStorage.removeItem("resumeAnalysisWarn");
+      localStorage.removeItem("resumeAnalysisImprove");
+      localStorage.removeItem("resumeAnalysisRewrite");
+      localStorage.removeItem("selectedCompany");
+      localStorage.removeItem("dressSelection");
+      localStorage.removeItem("selfIntroduction");
+      localStorage.removeItem("selfIntroMode");
+      localStorage.removeItem("selfIntroModeChoice");
+      localStorage.removeItem("hrAnswers");
+      localStorage.removeItem("hrQuestionSet");
+      sessionStorage.removeItem("hrPageLoaded");
+    }
+
+    const selectedCompany = localStorage.getItem("selectedCompany") || "Zoho";
+    const dressSelection = JSON.parse(localStorage.getItem("dressSelection") || "[]");
+    const selfIntroduction = localStorage.getItem("selfIntroduction") || "";
+    const selfIntroMode = localStorage.getItem("selfIntroMode") || "text";
+    const hrAnswers = JSON.parse(localStorage.getItem("hrAnswers") || "[]");
+
+    const resumeScore = parseInt(localStorage.getItem("resumeATSScore") || "0", 10);
+    const resumeUploadedFileName = localStorage.getItem("resumeUploadedFileName") || "";
+    const resumeExtractedText = localStorage.getItem("resumeExtractedText") || "";
+    const resumeGood = JSON.parse(localStorage.getItem("resumeAnalysisGood") || "[]");
+    const resumeWarn = JSON.parse(localStorage.getItem("resumeAnalysisWarn") || "[]");
+    const resumeImprove = JSON.parse(localStorage.getItem("resumeAnalysisImprove") || "[]");
+    const resumeRewrite = localStorage.getItem("resumeAnalysisRewrite") || "";
+
+    document.getElementById("companyName").textContent = selectedCompany;
+    document.getElementById("introMode").textContent = selfIntroMode.charAt(0).toUpperCase() + selfIntroMode.slice(1);
+    document.getElementById("hrCount").textContent = hrAnswers.length || 5;
+
+    function calculateDressScore(items) {
+      let score = 50;
+      if (items.includes("Formal Shirt")) score += 15;
+      if (items.includes("Blazer")) score += 15;
+      if (items.includes("Tie")) score += 10;
+      if (items.includes("Formal Shoes")) score += 10;
+      if (items.includes("T-Shirt")) score -= 10;
+      if (items.includes("Sneakers")) score -= 10;
+      if (score > 100) score = 100;
+      if (score < 20) score = 20;
+      return score;
+    }
+
+    function calculateIntroScore(text) {
+      let score = 40;
+      const lower = text.toLowerCase();
+
+      if (text.length >= 60) score += 10;
+      if (text.length >= 140) score += 10;
+      if (text.length >= 240) score += 10;
+      if (lower.includes("my name is")) score += 5;
+      if (lower.includes("skills")) score += 5;
+      if (lower.includes("project")) score += 5;
+      if (lower.includes("interested")) score += 5;
+      if (lower.includes("thank you")) score += 5;
+
+      if (score > 100) score = 100;
+      return score;
+    }
+
+    function calculateHRScore(answers) {
+      if (!answers.length) return 45;
+      let score = 50;
+      let longAnswers = 0;
+
+      answers.forEach(item => {
+        const len = (item.answer || "").trim().length;
+        if (len >= 30) score += 4;
+        if (len >= 80) score += 4;
+        if (len >= 150) longAnswers++;
+      });
+
+      score += longAnswers * 2;
+      if (score > 100) score = 100;
+      return score;
+    }
+
+    function addListItems(container, items, type) {
+      container.innerHTML = "";
+      items.forEach(text => {
+        const div = document.createElement("div");
+        div.className = `list-item ${type}`;
+        div.innerHTML = `<i class="fa-solid ${type === 'good' ? 'fa-circle-check' : type === 'warn' ? 'fa-triangle-exclamation' : 'fa-wand-magic-sparkles'}"></i><span>${text}</span>`;
+        container.appendChild(div);
+      });
+    }
+
+    const dressScore = calculateDressScore(dressSelection);
+    const introScore = calculateIntroScore(selfIntroduction);
+    const hrScore = calculateHRScore(hrAnswers);
+    const overallScore = Math.round((resumeScore * 0.2) + (dressScore * 0.2) + (introScore * 0.25) + (hrScore * 0.35));
+
+    document.getElementById("resumeScore").textContent = resumeScore + "%";
+    document.getElementById("dressScore").textContent = dressScore + "%";
+    document.getElementById("introScore").textContent = introScore + "%";
+    document.getElementById("hrScore").textContent = hrScore + "%";
+    document.getElementById("overallScore").textContent = overallScore + "%";
+
+    const scoreStatus = document.getElementById("scoreStatus");
+    if (overallScore >= 85) scoreStatus.textContent = "Excellent Performance";
+    else if (overallScore >= 70) scoreStatus.textContent = "Strong Performance";
+    else if (overallScore >= 55) scoreStatus.textContent = "Average Performance";
+    else scoreStatus.textContent = "Needs Improvement";
+
+    document.getElementById("resumeFileText").textContent = resumeUploadedFileName || "No resume uploaded.";
+    document.getElementById("resumeExtractedText").textContent = resumeExtractedText || "No extracted resume text found.";
+    addListItems(document.getElementById("resumeGoodList"), resumeGood, "good");
+    addListItems(document.getElementById("resumeWarnList"), resumeWarn, "warn");
+    addListItems(document.getElementById("resumeImproveList"), resumeImprove, "improve");
+    document.getElementById("resumeRewriteText").textContent = resumeRewrite || "No ATS rewrite suggestions found.";
+
+    document.getElementById("dressItemsText").textContent =
+      dressSelection.length ? dressSelection.join(", ") : "No items selected.";
+    document.getElementById("dressProgress").style.width = dressScore + "%";
+    document.getElementById("introProgress").style.width = introScore + "%";
+    document.getElementById("introText").textContent = selfIntroduction || "No self introduction found.";
+
+    const goodPoints = [];
+    const warnPoints = [];
+    const improveList = [];
+    const changeList = [];
+
+    if (resumeScore >= 70) goodPoints.push("Uploaded resume passed ATS-style validation and produced usable analysis.");
+    else warnPoints.push("Resume quality is weak or missing enough ATS-friendly structure.");
+
+    if (dressScore >= 75) goodPoints.push("Professional dress selection created a positive interview impression.");
+    else warnPoints.push("Dress selection could be more formal for stronger presentation.");
+
+    if (introScore >= 75) goodPoints.push("Self introduction had a reasonable level of structure and detail.");
+    else warnPoints.push("Self introduction needs better structure, length, or stronger keywords.");
+
+    if (hrScore >= 75) goodPoints.push("HR answers showed decent effort and response completeness.");
+    else warnPoints.push("Some HR answers were too short or lacked supporting detail.");
+
+    improveList.push("Improve resume keywords, measurable achievements, and project descriptions.");
+    improveList.push("Practice a smoother and more confident self introduction.");
+    improveList.push("Answer HR questions with examples instead of short statements.");
+
+    changeList.push("Use more formal interview clothing where possible.");
+    changeList.push("Mention education, skills, and projects clearly in your introduction.");
+    changeList.push("Expand weak answers with reasons, examples, and outcomes.");
+
+    addListItems(document.getElementById("goodPoints"), goodPoints, "good");
+    addListItems(document.getElementById("warnPoints"), warnPoints, "warn");
+    addListItems(document.getElementById("improveList"), improveList, "improve");
+    addListItems(document.getElementById("changeList"), changeList, "warn");
+
+    const introFeedbackItems = [];
+    if (selfIntroduction.length < 80) introFeedbackItems.push("Your introduction is too short. Add more details about education, skills, and projects.");
+    if (!selfIntroduction.toLowerCase().includes("my name")) introFeedbackItems.push("Start with a clear greeting and introduce your name properly.");
+    if (!selfIntroduction.toLowerCase().includes("project")) introFeedbackItems.push("Mention at least one project to strengthen your introduction.");
+    if (!selfIntroduction.toLowerCase().includes("thank")) introFeedbackItems.push("A polite ending like 'Thank you' makes the introduction complete.");
+    if (!introFeedbackItems.length) introFeedbackItems.push("Your self introduction is reasonably structured and suitable for a mock interview demo.");
+    addListItems(
+      document.getElementById("introFeedback"),
+      introFeedbackItems,
+      introFeedbackItems.length === 1 && introFeedbackItems[0].includes("reasonably") ? "good" : "improve"
+    );
+
+    const hrAnswersList = document.getElementById("hrAnswersList");
+    if (hrAnswers.length) {
+      hrAnswers.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "answer-card";
+        card.innerHTML = `
+          <h4>Question ${index + 1}: ${item.question}</h4>
+          <p>${item.answer ? item.answer : "No answer provided."}</p>
+        `;
+        hrAnswersList.appendChild(card);
+      });
+    } else {
+      hrAnswersList.innerHTML = `
+        <div class="big-box">
+          <h3>No HR Answers Found</h3>
+          <p>Please complete the HR question page to see answer analysis here.</p>
+        </div>
+      `;
+    }
+
+    const tabs = document.querySelectorAll(".chrome-tab");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        panels.forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>

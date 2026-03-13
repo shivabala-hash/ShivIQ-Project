@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Analysis - ShivIQ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.4;
+      animation: floatBlob 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .blob1 { width: 260px; height: 260px; background: #8b5cf6; top: 40px; left: 50px; }
+    .blob2 { width: 280px; height: 280px; background: #06b6d4; bottom: 40px; right: 50px; animation-delay: 2s; }
+    .blob3 { width: 220px; height: 220px; background: #22c55e; top: 40%; left: 45%; animation-delay: 4s; }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.06); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 92%;
+      max-width: 1280px;
+      margin: auto;
+      padding: 40px 0 60px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #60a5fa;
+      animation: pulseIcon 2s infinite;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .page-header h1 {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(90deg, #60a5fa, #22d3ee, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: #dbeafe;
+      max-width: 860px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title i {
+      color: #93c5fd;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: #dbeafe;
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .upload-box {
+      border: 2px dashed rgba(255,255,255,0.22);
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      transition: 0.3s ease;
+      margin-bottom: 18px;
+    }
+
+    .upload-box:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-3px);
+    }
+
+    .upload-box i {
+      font-size: 40px;
+      color: #60a5fa;
+      margin-bottom: 14px;
+    }
+
+    .upload-box h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .upload-box p {
+      color: #dbeafe;
+      font-size: 14px;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .file-input {
+      display: block;
+      width: 100%;
+      margin: 0 auto 12px;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .file-name, .upload-note, .status-line {
+      font-size: 13px;
+      color: #bfdbfe;
+      min-height: 20px;
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 220px;
+      resize: vertical;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 18px;
+      color: white;
+      outline: none;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+
+    textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #bfdbfe;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 15px 24px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      transition: 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 12px 35px rgba(59,130,246,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(124,58,237,0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    .btn-disabled {
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    .score-box, .big-box, .list-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .score-label {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .score-value {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #8b5cf6);
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    .list-box h3, .big-box h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .list-item i {
+      margin-top: 3px;
+    }
+
+    .good i { color: #4ade80; }
+    .warn i { color: #facc15; }
+    .improve i { color: #60a5fa; }
+
+    .big-box p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #dbeafe;
+      white-space: pre-wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error-box {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.28);
+      color: #fecaca;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 980px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .page-header h1 { font-size: 34px; }
+      .navbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-blur blob1"></div>
+  <div class="bg-blur blob2"></div>
+  <div class="bg-blur blob3"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>ShivIQ</span>
+      </div>
+
+      <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <div class="page-header">
+      <h1>Upload & Analyze Your <span>Resume</span></h1>
+      <p>
+        Upload an actual resume file. ShivIQ extracts text, validates that it looks like a resume,
+        analyzes it, and saves the result for the final report.
+      </p>
+    </div>
+
+    <div class="main-grid">
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-file-arrow-up"></i>
+          <span>Actual Resume Upload</span>
+        </div>
+        <div class="card-subtitle">
+          Supported: PDF, DOCX, TXT. Legacy DOC is not supported in browser-only mode.
+        </div>
+
+        <div class="upload-box">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <h3>Choose Your Resume File</h3>
+          <p>Upload your actual resume. Wrong files will be rejected.</p>
+          <input type="file" class="file-input" id="resumeFile" accept=".pdf,.docx,.txt,.doc" />
+          <div class="file-name" id="fileName">No file selected</div>
+          <div class="upload-note" id="uploadNote">Upload a resume file to begin.</div>
+          <div class="status-line" id="extractStatus"></div>
+        </div>
+
+        <div class="card-subtitle" style="margin-bottom:10px;">
+          Extracted resume text:
+        </div>
+
+        <textarea id="resumeText" placeholder="Extracted resume text will appear here..." readonly></textarea>
+
+        <div class="hint">
+          If your PDF is scanned like an image, text extraction may fail. Use a text PDF, DOCX, or TXT file.
+        </div>
+
+        <div class="action-row">
+          <button class="btn btn-primary" id="analyzeBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Analyze Resume
+          </button>
+
+          <a href="company.html" class="btn btn-secondary btn-disabled" id="continueBtn">
+            <i class="fa-solid fa-arrow-right"></i>
+            Continue to Company Selection
+          </a>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>ATS-Friendly Result</span>
+        </div>
+        <div class="card-subtitle">
+          Resume score and suggestions appear only after valid resume analysis.
+        </div>
+
+        <div id="resultArea" class="hidden">
+          <div class="score-box">
+            <div class="score-label">ATS Resume Score</div>
+            <div class="score-value" id="atsScore">0%</div>
+            <div class="progress">
+              <div class="progress-bar" id="atsBar"></div>
+            </div>
+          </div>
+
+          <div class="list-box">
+            <h3>What Is Good</h3>
+            <div class="list" id="goodList"></div>
+          </div>
+
+          <div class="list-box">
+            <h3>What Is Missing / Weak</h3>
+            <div class="list" id="warnList"></div>
+          </div>
+
+          <div class="list-box">
+            <h3>ATS-Friendly Improvements</h3>
+            <div class="list" id="improveList"></div>
+          </div>
+
+          <div class="big-box">
+            <h3>Suggested ATS-Friendly Changes</h3>
+            <p id="rewriteText"></p>
+          </div>
+        </div>
+
+        <div id="emptyState" class="big-box">
+          <h3>No Resume Analyzed Yet</h3>
+          <p>
+            Upload a valid resume file, wait for text extraction, then click <strong>Analyze Resume</strong>.
+          </p>
+        </div>
+
+        <div id="errorState" class="big-box error-box hidden">
+          <h3>Invalid Resume Upload</h3>
+          <p id="errorText">This file could not be accepted as a valid resume.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resumeFile = document.getElementById("resumeFile");
+    const fileName = document.getElementById("fileName");
+    const uploadNote = document.getElementById("uploadNote");
+    const extractStatus = document.getElementById("extractStatus");
+    const resumeText = document.getElementById("resumeText");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const resultArea = document.getElementById("resultArea");
+    const emptyState = document.getElementById("emptyState");
+    const errorState = document.getElementById("errorState");
+    const errorText = document.getElementById("errorText");
+    const atsScore = document.getElementById("atsScore");
+    const atsBar = document.getElementById("atsBar");
+    const goodList = document.getElementById("goodList");
+    const warnList = document.getElementById("warnList");
+    const improveList = document.getElementById("improveList");
+    const rewriteText = document.getElementById("rewriteText");
+
+    let extractedResumeText = "";
+    let uploadedFileName = "";
+    let isResumeValidated = false;
+
+    function resetAnalysisUI() {
+      resultArea.classList.add("hidden");
+      errorState.classList.add("hidden");
+      emptyState.classList.remove("hidden");
+      continueBtn.classList.add("btn-disabled");
+      localStorage.removeItem("resumeATSScore");
+      localStorage.removeItem("resumeUploadedFileName");
+      localStorage.removeItem("resumeExtractedText");
+      localStorage.removeItem("resumeAnalysisGood");
+      localStorage.removeItem("resumeAnalysisWarn");
+      localStorage.removeItem("resumeAnalysisImprove");
+      localStorage.removeItem("resumeAnalysisRewrite");
+    }
+
+    function addItems(container, items, type) {
+      container.innerHTML = "";
+      items.forEach(item => {
+        const div = document.createElement("div");
+        div.className = `list-item ${type}`;
+        div.innerHTML = `<i class="fa-solid ${type === 'good' ? 'fa-circle-check' : type === 'warn' ? 'fa-triangle-exclamation' : 'fa-wand-magic-sparkles'}"></i><span>${item}</span>`;
+        container.appendChild(div);
+      });
+    }
+
+    function normalizeText(text) {
+      return text.replace(/\s+/g, " ").trim();
+    }
+
+    async function extractPdfText(file) {
+      if (!window.pdfjsLib) {
+        throw new Error("PDF reader library failed to load. Check your internet connection and reload the page.");
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = "";
+
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const content = await page.getTextContent();
+        const strings = content.items.map(item => item.str);
+        fullText += " " + strings.join(" ");
+      }
+
+      return normalizeText(fullText);
+    }
+
+    async function extractDocxText(file) {
+      if (!window.mammoth) {
+        throw new Error("DOCX reader library failed to load. Check your internet connection and reload the page.");
+      }
+
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      return normalizeText(result.value || "");
+    }
+
+    async function extractTxtText(file) {
+      const text = await file.text();
+      return normalizeText(text);
+    }
+
+    function validateResumeText(text) {
+      const lower = text.toLowerCase();
+
+      const resumeIndicators = [
+        "education", "skills", "project", "experience", "summary",
+        "objective", "certification", "internship", "email", "phone",
+        "linkedin", "github", "technical skills"
+      ];
+
+      const certificateIndicators = [
+        "certificate of completion", "certificate", "awarded to",
+        "presented to", "this certifies", "successfully completed",
+        "issued on", "authorized signatory", "training completion"
+      ];
+
+      let resumeHits = 0;
+      let certificateHits = 0;
+
+      resumeIndicators.forEach(word => {
+        if (lower.includes(word)) resumeHits++;
+      });
+
+      certificateIndicators.forEach(word => {
+        if (lower.includes(word)) certificateHits++;
+      });
+
+      if (certificateHits >= 2 && resumeHits < 3) {
+        return {
+          valid: false,
+          reason: "This file looks like a certificate or non-resume document, not a resume."
+        };
+      }
+
+      if (text.length < 120) {
+        return {
+          valid: false,
+          reason: "The extracted text is too short to be a proper resume."
+        };
+      }
+
+      if (resumeHits < 3) {
+        return {
+          valid: false,
+          reason: "The file does not contain enough resume-like sections such as Education, Skills, Projects, Experience, or Contact details."
+        };
+      }
+
+      return { valid: true, reason: "" };
+    }
+
+    function analyzeResumeText(text) {
+      const lower = text.toLowerCase();
+      let score = 35;
+
+      const good = [];
+      const warn = [];
+      const improve = [];
+
+      const sections = [
+        { key: "education", label: "Education section" },
+        { key: "skills", label: "Skills section" },
+        { key: "project", label: "Projects section" },
+        { key: "experience", label: "Experience section" },
+        { key: "certification", label: "Certifications section" }
+      ];
+
+      sections.forEach(section => {
+        if (lower.includes(section.key)) {
+          score += 8;
+          good.push(`${section.label} is present.`);
+        } else {
+          warn.push(`${section.label} is missing or unclear.`);
+        }
+      });
+
+      if (/@/.test(text)) {
+        score += 6;
+        good.push("Email/contact detail looks present.");
+      } else {
+        warn.push("Email/contact detail is missing.");
+      }
+
+      if (/\b\d{10}\b/.test(text) || lower.includes("phone")) {
+        score += 4;
+        good.push("Phone number/contact section is available.");
+      } else {
+        warn.push("Phone/contact section should be clearly visible.");
+      }
+
+      if (lower.includes("linkedin") || lower.includes("github")) {
+        score += 6;
+        good.push("Professional links like GitHub/LinkedIn are included.");
+      } else {
+        improve.push("Add GitHub or LinkedIn links for stronger recruiter visibility.");
+      }
+
+      const actionWords = ["developed", "built", "designed", "implemented", "created", "optimized", "led"];
+      const foundActions = actionWords.filter(word => lower.includes(word));
+      if (foundActions.length >= 2) {
+        score += 10;
+        good.push("Strong action words are used in project or work descriptions.");
+      } else {
+        warn.push("Use stronger action words like developed, built, implemented, optimized.");
+      }
+
+      if (/\d+%|\d+\+|\d+\s*(users|projects|features|days|months)/i.test(text)) {
+        score += 10;
+        good.push("Resume includes measurable details or achievements.");
+      } else {
+        improve.push("Add measurable results like percentages, counts, users, or timelines.");
+      }
+
+      const techWords = ["java", "html", "css", "javascript", "python", "sql", "react", "node", "api"];
+      const foundTech = techWords.filter(word => lower.includes(word));
+      if (foundTech.length >= 3) {
+        score += 10;
+        good.push("Technical keywords are present, which helps ATS matching.");
+      } else {
+        warn.push("Add more job-relevant technical keywords to improve ATS matching.");
+      }
+
+      if (text.trim().length >= 250) {
+        score += 8;
+        good.push("Resume text has enough content for ATS evaluation.");
+      } else {
+        warn.push("Resume content looks too short. Add more relevant details.");
+      }
+
+      if (score > 100) score = 100;
+      if (score < 20) score = 20;
+
+      improve.push("Keep section headings simple: Education, Skills, Projects, Experience.");
+      improve.push("Use bullet points with action + skill + result format.");
+      improve.push("Tailor keywords to the company/job role you are applying for.");
+
+      const rewrite = `1. Add clear headings: Education, Skills, Projects, Experience.
+2. Rewrite project points using action words.
+   Example:
+   - Built a virtual interview simulator using HTML, CSS, and JavaScript.
+   - Implemented company-based interview flow and ATS-style resume evaluation.
+3. Add measurable outcomes.
+   Example:
+   - Designed 8 connected pages for mock interview workflow.
+   - Improved user navigation with page-to-page redirect flow.
+4. Include job-relevant skills near the top.
+5. Add GitHub/LinkedIn links if available.`;
+
+      return { score, good, warn, improve, rewrite };
+    }
+
+    resumeFile.addEventListener("change", async function () {
+      resetAnalysisUI();
+      resumeText.value = "";
+      extractedResumeText = "";
+      isResumeValidated = false;
+      extractStatus.textContent = "";
+
+      if (!resumeFile.files.length) {
+        fileName.textContent = "No file selected";
+        uploadNote.textContent = "Upload a resume file to begin.";
+        return;
+      }
+
+      const file = resumeFile.files[0];
+      uploadedFileName = file.name;
+      const nameLower = file.name.toLowerCase();
+
+      fileName.textContent = "Selected File: " + file.name;
+      uploadNote.textContent = "Extracting text from the uploaded file...";
+
+      try {
+        let text = "";
+
+        if (nameLower.endsWith(".pdf")) {
+          extractStatus.textContent = "Reading PDF text...";
+          text = await extractPdfText(file);
+        } else if (nameLower.endsWith(".docx")) {
+          extractStatus.textContent = "Reading DOCX text...";
+          text = await extractDocxText(file);
+        } else if (nameLower.endsWith(".txt")) {
+          extractStatus.textContent = "Reading TXT text...";
+          text = await extractTxtText(file);
+        } else if (nameLower.endsWith(".doc")) {
+          throw new Error("Legacy DOC files are not supported in browser-only mode. Please upload PDF, DOCX, or TXT.");
+        } else {
+          throw new Error("Unsupported file type. Please upload PDF, DOCX, or TXT.");
+        }
+
+        extractedResumeText = text;
+        resumeText.value = text || "";
+
+        if (!text) {
+          throw new Error("No readable text could be extracted from this file. It may be a scanned image PDF or invalid document.");
+        }
+
+        const validation = validateResumeText(text);
+
+        if (!validation.valid) {
+          isResumeValidated = false;
+          errorState.classList.remove("hidden");
+          emptyState.classList.add("hidden");
+          errorText.textContent = validation.reason;
+          uploadNote.textContent = "Uploaded file was rejected as a resume.";
+          extractStatus.textContent = "Validation failed.";
+          return;
+        }
+
+        isResumeValidated = true;
+        uploadNote.textContent = "Resume text extracted successfully. You can now analyze it.";
+        extractStatus.textContent = "Resume validation passed.";
+
+      } catch (err) {
+        isResumeValidated = false;
+        errorState.classList.remove("hidden");
+        emptyState.classList.add("hidden");
+        errorText.textContent = err.message;
+        uploadNote.textContent = "Upload failed or file is not a valid readable resume.";
+        extractStatus.textContent = "";
+      }
+    });
+
+    analyzeBtn.addEventListener("click", () => {
+      resultArea.classList.add("hidden");
+      errorState.classList.add("hidden");
+      emptyState.classList.add("hidden");
+      continueBtn.classList.add("btn-disabled");
+
+      if (!resumeFile.files.length) {
+        errorState.classList.remove("hidden");
+        errorText.textContent = "Please upload a resume file before continuing.";
+        return;
+      }
+
+      if (!extractedResumeText || !isResumeValidated) {
+        errorState.classList.remove("hidden");
+        errorText.textContent = "The uploaded file is not accepted as a valid resume, so you cannot continue.";
+        return;
+      }
+
+      const result = analyzeResumeText(extractedResumeText);
+
+      atsScore.textContent = result.score + "%";
+      atsBar.style.width = result.score + "%";
+      addItems(goodList, result.good, "good");
+      addItems(warnList, result.warn, "warn");
+      addItems(improveList, result.improve, "improve");
+      rewriteText.textContent = result.rewrite;
+
+      resultArea.classList.remove("hidden");
+
+      localStorage.setItem("resumeATSScore", result.score);
+      localStorage.setItem("resumeUploadedFileName", uploadedFileName);
+      localStorage.setItem("resumeExtractedText", extractedResumeText);
+      localStorage.setItem("resumeAnalysisGood", JSON.stringify(result.good));
+      localStorage.setItem("resumeAnalysisWarn", JSON.stringify(result.warn));
+      localStorage.setItem("resumeAnalysisImprove", JSON.stringify(result.improve));
+      localStorage.setItem("resumeAnalysisRewrite", result.rewrite);
+
+      continueBtn.classList.remove("btn-disabled");
+    });
+  </script>
+</body>
+</html>

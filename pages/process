@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interview Process - ShivIQ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #312e81, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.4;
+      animation: floatBlob 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .blob1 {
+      width: 260px;
+      height: 260px;
+      background: #8b5cf6;
+      top: 40px;
+      left: 50px;
+    }
+
+    .blob2 {
+      width: 280px;
+      height: 280px;
+      background: #06b6d4;
+      bottom: 40px;
+      right: 50px;
+      animation-delay: 2s;
+    }
+
+    .blob3 {
+      width: 220px;
+      height: 220px;
+      background: #22c55e;
+      top: 42%;
+      left: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.06); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: 1150px;
+      margin: auto;
+      padding: 40px 0 60px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      color: #60a5fa;
+      animation: pulseIcon 2s infinite;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 35px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .page-header h1 {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(90deg, #60a5fa, #22d3ee, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      color: #dbeafe;
+      max-width: 760px;
+      margin: auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      margin-top: 35px;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title i {
+      color: #93c5fd;
+    }
+
+    .card-subtitle {
+      color: #dbeafe;
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .company-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: #e2e8f0;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .step-number {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
+    }
+
+    .step-content h3 {
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: #dbeafe;
+      line-height: 1.8;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .info-box h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      font-size: 14px;
+      color: #dbeafe;
+      line-height: 1.8;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #e2e8f0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-item i {
+      color: #60a5fa;
+    }
+
+    .start-btn {
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      transition: 0.35s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.3);
+      text-decoration: none;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(124, 58, 237, 0.4);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        width: 92%;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+
+      .page-header h1 {
+        font-size: 30px;
+      }
+
+      .glass-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blur blob1"></div>
+  <div class="bg-blur blob2"></div>
+  <div class="bg-blur blob3"></div>
+
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>ShivIQ</span>
+      </div>
+
+      <a href="company.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Company
+      </a>
+    </div>
+
+    <div class="page-header">
+      <h1><span id="companyTitle">Company</span> Interview Process</h1>
+      <p>
+        ShivIQ now shows the interview flow for your selected company. Review the process,
+        understand the rounds, and then begin the mock interview experience.
+      </p>
+    </div>
+
+    <div class="main-grid">
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-sitemap"></i>
+          <span>Interview Flow</span>
+        </div>
+
+        <div class="company-pill">
+          <i class="fa-solid fa-building"></i>
+          Selected Company: <strong id="selectedCompanyText">Zoho</strong>
+        </div>
+
+        <div class="steps" id="stepsContainer"></div>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-title">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Preparation Summary</span>
+        </div>
+
+        <div class="card-subtitle">
+          Before the mock interview begins, review what ShivIQ will evaluate for you.
+        </div>
+
+        <div class="info-box">
+          <h3>What Happens Next?</h3>
+          <p>
+            In the mock interview, you will complete dress code selection, self-introduction analysis,
+            and HR question answering. Your performance will be evaluated at the end.
+          </p>
+        </div>
+
+        <div class="mini-list">
+          <div class="mini-item">
+            <i class="fa-solid fa-shirt"></i>
+            Dress Code Check
+          </div>
+          <div class="mini-item">
+            <i class="fa-solid fa-microphone-lines"></i>
+            Self Introduction Review
+          </div>
+          <div class="mini-item">
+            <i class="fa-solid fa-comments"></i>
+            HR Question Session
+          </div>
+          <div class="mini-item">
+            <i class="fa-solid fa-chart-column"></i>
+            Final Performance Report
+          </div>
+        </div>
+
+        <a href="dresscode.html" class="start-btn">
+          <i class="fa-solid fa-play"></i>
+          Start Mock Interview
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const selectedCompany = localStorage.getItem("selectedCompany") || "Zoho";
+
+    document.getElementById("companyTitle").textContent = selectedCompany;
+    document.getElementById("selectedCompanyText").textContent = selectedCompany;
+
+    const stepsContainer = document.getElementById("stepsContainer");
+
+    const processData = {
+      Zoho: [
+        {
+          title: "Resume Screening",
+          description: "Your resume is checked for clarity, projects, technical skills, and ATS compatibility."
+        },
+        {
+          title: "Aptitude Test",
+          description: "Logical reasoning, analytical thinking, and basic problem-solving are evaluated."
+        },
+        {
+          title: "Programming Round",
+          description: "Candidates solve coding-based tasks focused on logic, syntax, and programming knowledge."
+        },
+        {
+          title: "Technical Interview",
+          description: "Questions may cover projects, programming fundamentals, and technical problem-solving."
+        },
+        {
+          title: "HR Interview",
+          description: "Communication skills, confidence, strengths, goals, and company fit are checked."
+        }
+      ],
+      TCS: [
+        {
+          title: "Resume Screening",
+          description: "Your resume is reviewed for education, technical skills, projects, and ATS readiness."
+        },
+        {
+          title: "Online Test",
+          description: "Candidates go through aptitude, reasoning, and sometimes verbal ability assessment."
+        },
+        {
+          title: "Technical Interview",
+          description: "Basic technical questions, academic knowledge, and project explanations are discussed."
+        },
+        {
+          title: "HR Interview",
+          description: "HR evaluates communication, confidence, behavior, and overall role suitability."
+        }
+      ]
+    };
+
+    const selectedSteps = processData[selectedCompany] || processData["Zoho"];
+
+    selectedSteps.forEach((step, index) => {
+      const stepDiv = document.createElement("div");
+      stepDiv.className = "step";
+      stepDiv.innerHTML = `
+        <div class="step-number">${index + 1}</div>
+        <div class="step-content">
+          <h3>${step.title}</h3>
+          <p>${step.description}</p>
+        </div>
+      `;
+      stepsContainer.appendChild(stepDiv);
+    });
+  </script>
+
+</body>
+</html>
